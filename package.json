@@ -1,0 +1,42 @@
+{
+  "name": "ketchup-packet",
+  "version": "1.0.0",
+  "description": "npm modules for Aaron's MVP project",
+  "main": "index.jsx",
+  "scripts": {
+    "server-dev": "nodemon server/index.js -w",
+    "client-dev": "webpack --config webpack.config.js -w",
+    "build": "npx webpack --config webpack.config.js && npm run server-start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Panlord/Ketchup.git"
+  },
+  "author": "Aaron Pan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Panlord/Ketchup/issues"
+  },
+  "homepage": "https://github.com/Panlord/Ketchup#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.1.4",
+    "file-loader": "^6.2.0",
+    "nodemon": "^2.0.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-styled-components": "^2.0.7",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
