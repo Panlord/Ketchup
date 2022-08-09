@@ -12,7 +12,11 @@ const GoogleCaptcha = () => {
     console.log('Google captcha complete. Sending valid token to the server.');
     axios.post('./ketchup/validateToken', { captchaValue: value })
       .then((results) => {
-        console.log(results);
+        if (results.data.success) {
+          // Next stage
+        } else {
+          // Failure
+        }
       })
       .catch((error) => {
         console.log('An error occurred with sending valid token to Google.');
