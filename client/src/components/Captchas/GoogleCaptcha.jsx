@@ -3,7 +3,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const GoogleCaptcha = () => {
+const GoogleCaptcha = (props) => {
 
   const recaptchaRef = React.createRef();
 
@@ -12,8 +12,9 @@ const GoogleCaptcha = () => {
     console.log('Google captcha complete. Sending valid token to the server.');
     axios.post('./ketchup/validateToken', { captchaValue: value })
       .then((results) => {
+        console.log(results.data.success);
         if (results.data.success) {
-          // Next stage
+          setTimeout(() => {props.changeStage(1);}, 500);
         } else {
           // Failure
         }

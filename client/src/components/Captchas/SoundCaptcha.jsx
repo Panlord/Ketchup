@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-class TextCaptcha extends React.Component {
+class SoundCaptcha extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,10 +15,10 @@ class TextCaptcha extends React.Component {
   render () {
     return (
       <div>
-        Text Captcha Goes here.
+        Sound Captcha Goes here.
       </div>
     );
   }
 }
 
-export default TextCaptcha;
+export default SoundCaptcha;

@@ -1,6 +1,8 @@
 import React from 'react';
 import GoogleCaptcha from './Captchas/GoogleCaptcha.jsx';
 import styled from 'styled-components';
+import Game from './Game.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /* Stages
     0 - default: solve Google reCaptcha
@@ -13,30 +15,19 @@ import styled from 'styled-components';
 */
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stage: 0,
-      score: 0,
-      time: 0,
-    }
-  }
-
-  // Function to change the stage of the game
-  // Input: number representing the stage to go to
-  handleStageChange (nextStage) {
-
-  };
 
   render () {
     return (
-      <AppDiv>
-        <GoogleCaptcha />
-      </AppDiv>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Game />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }
 
+// This may be unnecessary; remove at the end if not using
 const AppDiv = styled.div`
   display: flex;
   flex-direction: row;

@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-class TextCaptcha extends React.Component {
+class ImageCaptcha extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      captcha: '',
-      answer: '',
+      images: [],
+      answer: [],
+      selected: [],
     };
   }
 
@@ -15,10 +16,10 @@ class TextCaptcha extends React.Component {
   render () {
     return (
       <div>
-        Text Captcha Goes here.
+        Image Captcha Goes here.
       </div>
     );
   }
 }
 
-export default TextCaptcha;
+export default ImageCaptcha;
