@@ -2,6 +2,7 @@ import React from 'react';
 import GoogleCaptcha from './Captchas/GoogleCaptcha.jsx';
 import styled from 'styled-components';
 import Game from './Game.jsx';
+import Scores from './Scores.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /* Stages
@@ -21,6 +22,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Game />} />
+            <Route path="scores" element={<Scores />} />
         </Routes>
       </BrowserRouter>
     );
