@@ -1,5 +1,6 @@
 import React from 'react';
 import GoogleCaptcha from './Captchas/GoogleCaptcha.jsx';
+import styled from 'styled-components';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,11 +12,20 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>Hello!
+      <AppDiv>
         <GoogleCaptcha />
-      </div>
+      </AppDiv>
     );
   }
 }
+
+const AppDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-itmes: center;
+  width: 100%;
+  height: 100%;
+`;
 
 export default App;
