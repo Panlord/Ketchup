@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import IncorrectMessage from '../IncorrectCaptchaMessage.jsx';
 
 var msg = new SpeechSynthesisUtterance();
 var voices = [];
@@ -16,6 +17,8 @@ class SoundCaptcha extends React.Component {
       answer: '',
       voice: 0,
       pitch: 1,
+      input: '',
+      gotWrong: false,
     };
   }
 
@@ -28,10 +31,35 @@ class SoundCaptcha extends React.Component {
     speechSynthesis.speak(msg);
   }
 
+  // Function to handle inputs to text input field
+  handleInput (event) {
+    this.setState({input: event.target.value})
+  }
+
   // Function to handle submitting the captcha answer
   handleSubmit (event) {
     event.preventDefault();
-
+    if (this.state.answer === this.state.input) {
+      this.props.increaseScore(1);
+      // First 6-10 points are all from text captchas
+      if (this.props.currentScore < 15) {
+        // Refresh the text component with new data
+        this.refreshComponent();
+      // After scoring the 10th point, proceed to stage 4(?)
+      } else if (this.props.currentScore === 15) {
+        this.props.changeStage(4);
+      // After 15 points, change to any stage
+      } else if (this.props.currentScore > 15 && this.props.currentScore < 100) {
+        let nextStage = Math.ceil(Math.random() * 4);
+        if (nextStage === 3) {
+          this.refreshComponent();
+        } else {
+          this.props.changeStage(nextStage);
+        }
+      }
+    } else {
+      this.setState({gotWrong: true});
+    }
   }
 
   // Function to reset/randomize this captcha
@@ -41,6 +69,8 @@ class SoundCaptcha extends React.Component {
       answer: wordBank[Math.floor(Math.random() * wordBank.length)],
       voice: selectedVoices[Math.floor(Math.random() * selectedVoices.length)], // voice from specifically selected voices
       pitch: Math.random() * 2,
+      input: '',
+      gotWrong: false,
     });
   }
 
@@ -57,9 +87,10 @@ class SoundCaptcha extends React.Component {
   render () {
     return (
       <SoundCaptchaWrapper onSubmit={this.handleSubmit.bind(this)} >
+        {this.state.gotWrong && <IncorrectMessage />}
         Play the audio and enter the word.
         <AudioPlay type="button" onClick={this.handlePlay.bind(this)}>Speak</AudioPlay>
-        <TextInput type="text"></TextInput>
+        <TextInput type="text" value={this.state.input} onChange={this.handleInput.bind(this)} />
         <SubmitButton type="submit">Submit</SubmitButton>
       </SoundCaptchaWrapper>
     );
@@ -70,6 +101,7 @@ const SoundCaptchaWrapper = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 `;
 const AudioPlay = styled.button`
   background-color: #009ff5;
