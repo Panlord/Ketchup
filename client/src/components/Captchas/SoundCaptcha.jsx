@@ -5,9 +5,9 @@ var msg = new SpeechSynthesisUtterance();
 var voices = [];
 setTimeout(() => {window.speechSynthesis.getVoices();}, 50);
 var selectedVoices = [0, 10, 37, 41, 49, 50, 51, 58];
-msg.volume = 1;
+msg.volume = 0.6;
 msg.rate = 1;
-var wordBank = ['ligma', 'deez nutz', 'anthony', 'banana', 'apple', 'frog', 'table', 'god', 'water', 'squish', 'bottom', 'butter', 'red', 'purple', 'flower', 'dandelion', 'sidewalk', 'lightpost', 'cat', 'base', 'picture', 'hood', 'car', 'tree', 'bike', 'donkey', 'dog', 'dinosaur', 'tyrannosaurus', 'camel', 'beer', 'pikachu', 'bug', 'mosquito', 'apricot', 'hammer', 'mountain', 'coffee', 'pen', 'paper', 'shelf', 'boobies', 'jacket'];
+var wordBank = ['ligma', 'deez nutz', 'anthony', 'banana', 'apple', 'frog', 'table', 'god', 'water', 'squish', 'bottom', 'butter', 'purple', 'flower', 'dandelion', 'sidewalk', 'lightpost', 'cat', 'base', 'picture', 'hood', 'car', 'tree', 'bike', 'donkey', 'dog', 'dinosaur', 'tyrannosaurus', 'camel', 'beer', 'pikachu', 'bug', 'mosquito', 'apricot', 'hammer', 'mountain', 'coffee', 'pen', 'paper', 'shelf', 'jacket', 'spicy', 'honey', 'salty'];
 
 class SoundCaptcha extends React.Component {
   constructor(props) {
@@ -26,10 +26,13 @@ class SoundCaptcha extends React.Component {
     msg.text = this.state.answer;
     msg.pitch = this.state.pitch;
     speechSynthesis.speak(msg);
-    console.log(msg);
   }
 
   // Function to handle submitting the captcha answer
+  handleSubmit (event) {
+    event.preventDefault();
+
+  }
 
   // Function to reset/randomize this captcha
   refreshComponent () {
@@ -53,12 +56,31 @@ class SoundCaptcha extends React.Component {
 
   render () {
     return (
-      <div>
-        Sound Captcha Goes here.
-        <button onClick={this.handlePlay.bind(this)}>Speak</button>
-      </div>
+      <SoundCaptchaWrapper onSubmit={this.handleSubmit.bind(this)} >
+        Play the audio and enter the word.
+        <AudioPlay type="button" onClick={this.handlePlay.bind(this)}>Speak</AudioPlay>
+        <TextInput type="text"></TextInput>
+        <SubmitButton type="submit">Submit</SubmitButton>
+      </SoundCaptchaWrapper>
     );
   }
 }
+
+const SoundCaptchaWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const AudioPlay = styled.button`
+  background-color: #009ff5;
+  color: white;
+`;
+const TextInput = styled.input`
+  width: 200px;
+  height: 20px;
+`;
+const SubmitButton = styled.button`
+
+`;
 
 export default SoundCaptcha;
