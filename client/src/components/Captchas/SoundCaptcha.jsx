@@ -64,7 +64,6 @@ class SoundCaptcha extends React.Component {
 
   // Function to reset/randomize this captcha
   refreshComponent () {
-    console.log(voices);
     this.setState({
       answer: wordBank[Math.floor(Math.random() * wordBank.length)],
       voice: selectedVoices[Math.floor(Math.random() * selectedVoices.length)], // voice from specifically selected voices
@@ -81,6 +80,7 @@ class SoundCaptcha extends React.Component {
       this.refreshComponent();
     } else {
       alert('Your browser does not support speech synthesis. Skipping this captcha.');
+      this.props.changeStage(1);
     }
   }
 
@@ -102,6 +102,7 @@ const SoundCaptchaWrapper = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  height: 164px;
 `;
 const AudioPlay = styled.button`
   background-color: #009ff5;
