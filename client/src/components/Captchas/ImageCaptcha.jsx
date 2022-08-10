@@ -106,10 +106,10 @@ class ImageCaptcha extends React.Component {
         return (`https://placekitten.com/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
         // return (<CaptchaImage src="https://placekitten.com/126/126" alt="" />);
       case "dogs":
-        return ("https://place.dog/126/126");
+        return (`https://place.dog/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
         // return (<CaptchaImage src="https://place.dog/126/126" alt="" />);
       case "bears":
-        return ("https://placebear.com/126/126");
+        return (`https://placebear.com/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
         // return (<CaptchaImage src="https://placebear.com/126/126" alt="" />);
       case "ducks":
         return (`https://random-d.uk/api/${Math.ceil(Math.random() * 100)}.jpg`);
@@ -181,7 +181,7 @@ class ImageCaptcha extends React.Component {
 const CaptchaImage = styled.img`
   width: 126px;
   height: 126px;
-  object-fit: fill;
+  object-fit: cover;
 `;
 
 export default ImageCaptcha;
