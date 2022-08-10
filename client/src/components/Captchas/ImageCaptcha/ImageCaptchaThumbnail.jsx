@@ -19,6 +19,13 @@ class ImageCaptchaThumbnail extends React.Component {
     this.props.handleSelect(this.state.value);
   }
 
+  // If the image url changes, reset state.selected
+  componentDidUpdate (prevProps) {
+    if (this.props.imgUrl !== prevProps.imgUrl) {
+      this.setState({selected: false, value: this.props.value});
+    }
+  }
+
   render () {
     let image;
     if (this.state.selected) {

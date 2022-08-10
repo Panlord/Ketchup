@@ -224,12 +224,15 @@ const CaptchaContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  border: solid 1px;
 `;
 const CaptchaInstructions = styled.div`
-  width: 386px;
+  width: 390px;
   height: 114px;
-  background-color: cyan;
+  background-color: #009ff5;
   justify-content: center;
+  color: white;
 `;
 const CaptchaImageContainer = styled.div`
   display: flex;
@@ -239,6 +242,8 @@ const CaptchaImageContainer = styled.div`
 const SubmitButton = styled.button`
   width: 100px;
   height: 42px;
+  background-color: #009ff5;
+  color: white;
 `;
 
 export default ImageCaptcha;
