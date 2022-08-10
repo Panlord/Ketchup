@@ -32,6 +32,7 @@ class ImageCaptcha extends React.Component {
     super(props);
     this.state = {
       images: [], // An array of image objects (each image object: { url: String, name: String})
+      category: '',
       answers: [], // An array of the correct image objects
       selected: [], // An array of the selected objects
       gotWrong: false,
@@ -62,7 +63,7 @@ class ImageCaptcha extends React.Component {
           images.push(selection);
           answers.push(selection);
         }
-        this.setState({answers: answers, images: images});
+        this.setState({answers: answers, images: images, category: "Keanu Reeves"});
       }
     } else {
       // Prepare to update the states
@@ -70,32 +71,30 @@ class ImageCaptcha extends React.Component {
       let answers = [];
       // Select a random animal category that is the answer
       category = animals[Math.floor(Math.random() * 5)];
-      // Select a random number between 1 and 8-- it's how many selections are correct
-      let numberOfAnswers = Math.ceil(Math.random() * 8);
-      for (let i = 0; i < numberOfAnswers; i++) {
-        // Construct an image object and add it to the updated states
-        let selection = {
-          url: this.generateAnimalImage(category),
-          correct: true
-        }
-        images.push(selection);
-        answers.push(selection);
-      }
       // Now select another random animal category that will be the rest
       let otherCategory = category;
       while (otherCategory === category) {
         otherCategory = animals[Math.floor(Math.random() * 5)];
       };
-      // For the rest of the selection slots, construct the image objects and add them to the updated states
-      for (let j = 0; j < 9 - numberOfAnswers; j++) {
-        let selection = {
-          url: this.generateAnimalImage(otherCategory),
-          correct: false
+      // For 9 slots, either add a correct animal or a wrong one
+      for (let i = 0; i < 9; i++) {
+        if (Math.random() < 0.5) {
+          let selection = {
+            url: this.generateAnimalImage(category),
+            correct: true
+          }
+          images.push(selection);
+          answers.push(selection);
+        } else {
+          let selection = {
+            url: this.generateAnimalImage(otherCategory),
+            correct: false
+          }
+          images.push(selection);
         }
-        images.push(selection);
       }
       // Now actually update the states
-      this.setState({answers: answers, images: images});
+      this.setState({answers: answers, images: images, category: category});
     }
   }
 
@@ -172,14 +171,14 @@ class ImageCaptcha extends React.Component {
         {this.state.gotWrong && <IncorrectMessage />}
         <CaptchaContainer>
           <CaptchaInstructions>
-            Please select pictures of
+            Select all images of {this.state.category}.
           </CaptchaInstructions>
           <CaptchaImageContainer>
             {this.state.images.map((image) => {
               return <CaptchaImage src={image.url} />
             })}
           </CaptchaImageContainer>
-          <SubmitButton />
+          <SubmitButton>Submit</SubmitButton>
         </CaptchaContainer>
       </div>
     );
@@ -191,15 +190,18 @@ const CaptchaContainer = styled.div`
   height: 585px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 const CaptchaInstructions = styled.div`
   width: 386px;
   height: 114px;
   background-color: cyan;
+  justify-content: center;
 `;
 const CaptchaImageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 `;
 const CaptchaImage = styled.img`
   width: 126px;
