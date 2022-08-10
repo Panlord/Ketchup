@@ -170,19 +170,45 @@ class ImageCaptcha extends React.Component {
     return (
       <div>
         {this.state.gotWrong && <IncorrectMessage />}
-        {this.state.images.map((image) => {
-          console.log(image);
-          return <CaptchaImage src={image.url} />
-        })}
+        <CaptchaContainer>
+          <CaptchaInstructions>
+            Please select pictures of
+          </CaptchaInstructions>
+          <CaptchaImageContainer>
+            {this.state.images.map((image) => {
+              return <CaptchaImage src={image.url} />
+            })}
+          </CaptchaImageContainer>
+          <SubmitButton />
+        </CaptchaContainer>
       </div>
     );
   }
 }
 
+const CaptchaContainer = styled.div`
+  width: 402px;
+  height: 585px;
+  display: flex;
+  flex-direction: column;
+`;
+const CaptchaInstructions = styled.div`
+  width: 386px;
+  height: 114px;
+  background-color: cyan;
+`;
+const CaptchaImageContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 const CaptchaImage = styled.img`
   width: 126px;
   height: 126px;
   object-fit: cover;
+`;
+const SubmitButton = styled.button`
+  width: 100px;
+  height: 42px;
 `;
 
 export default ImageCaptcha;
