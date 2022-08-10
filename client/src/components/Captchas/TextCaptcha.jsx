@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import IncorrectMessage from '../IncorrectCaptchaMessage.jsx';
 
 class TextCaptcha extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class TextCaptcha extends React.Component {
     axios.get('./ketchup/textCaptcha')
       .then((results) => {
         console.log(results);
-        this.setState({captchaImgSrc: results.data.url, answer: results.data.answer})
+        this.setState({captchaImgSrc: results.data.url, answer: results.data.answer, value: '', gotWrong: false})
       })
       .catch((error) => {
         console.log(error);
@@ -44,6 +45,7 @@ class TextCaptcha extends React.Component {
   render () {
     return (
       <TextCaptchaContainer>
+        {this.state.gotWrong && <IncorrectMessage />}
         <CaptchaImage src={this.state.captchaImgSrc} />
         <BottomContainer>
           <AnswerInputContainer>
