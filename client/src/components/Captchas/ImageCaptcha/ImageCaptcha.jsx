@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import IncorrectMessage from '../IncorrectCaptchaMessage.jsx';
+import ImageCaptchaThumbnail from './ImageCaptchaThumbnail.jsx';
+import IncorrectMessage from '../../IncorrectCaptchaMessage.jsx';
 
 /* APIs to get images from
     Cats: https://cataas.com/cat?wi=[#]&he=[#] || https://placekitten.com/[width]/[height]
@@ -63,7 +64,7 @@ class ImageCaptcha extends React.Component {
           images.push(selection);
           answers.push(selection);
         }
-        this.setState({answers: answers, images: images, category: "Keanu Reeves"});
+        this.setState({answers: answers, images: images, category: "Keanu Reeves", selected: [], gotWrong: false});
       }
     } else {
       // Prepare to update the states
@@ -94,7 +95,7 @@ class ImageCaptcha extends React.Component {
         }
       }
       // Now actually update the states
-      this.setState({answers: answers, images: images, category: category});
+      this.setState({answers: answers, images: images, category: category, selected: [], gotWrong: false});
     }
   }
 
@@ -120,6 +121,38 @@ class ImageCaptcha extends React.Component {
     }
   }
 
+  // Function to handle clicking an image
+  handleSelect (object) {
+    event.preventDefault();
+    let selected = this.state.selected;
+    if (this.hasItem(selected, object)) {
+      this.removeItem(selected, object);
+    } else {
+      selected.push(object);
+    }
+    this.setState({selected: selected});
+  }
+
+  // Helper function to check if input array has input image object
+  hasItem (array, object) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].url === object.url) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Helper function to remove image object from input array
+  removeItem (array, object) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].url === object.url) {
+        array[i] = array[array.length - 1];
+        array.pop();
+      }
+    }
+  }
+
   // Helper function to check if the whole selection is the correct answer
   checkAnswer () {
     if (this.state.answers.length !== this.state.selected.length) {
@@ -136,20 +169,20 @@ class ImageCaptcha extends React.Component {
   // Function to handle submitting the captcha answer
   handleSubmit (event) {
     event.preventDefault();
-    if (this.checkAnswer) {
+    if (this.checkAnswer()) {
       // Increase the score by 1
       this.props.increaseScore(1);
-      // First 5 points are all from text captchas
-      if (this.props.currentScore < 5) {
+      // First 6-10 points are all from text captchas
+      if (this.props.currentScore < 10) {
         // Refresh the text component with new data
         this.refreshComponent();
-      // After scoring the 5th point, proceed to stage 2
-      } else if (this.props.currentScore === 5) {
+      // After scoring the 10th point, proceed to stage 3
+      } else if (this.props.currentScore === 10) {
         this.props.changeStage(2);
-      // After 15 points, change stage to 2, 3, or 4
+      // After 15 points, change stage to 1, 3, or 4
       } else if (this.props.currentScore > 15 && this.props.currentScore < 100) {
         let nextStage = Math.ceil(Math.random() * 4);
-        if (nextStage === 1) {
+        if (nextStage === 2) {
           this.refreshComponent();
         } else {
           this.props.changeStage(nextStage);
@@ -175,10 +208,10 @@ class ImageCaptcha extends React.Component {
           </CaptchaInstructions>
           <CaptchaImageContainer>
             {this.state.images.map((image) => {
-              return <CaptchaImage src={image.url} />
+              return <ImageCaptchaThumbnail imgUrl={image.url} handleSelect={this.handleSelect.bind(this)} value={image} />
             })}
           </CaptchaImageContainer>
-          <SubmitButton>Submit</SubmitButton>
+          <SubmitButton onClick={this.handleSubmit.bind(this)} >Submit</SubmitButton>
         </CaptchaContainer>
       </div>
     );
@@ -202,11 +235,6 @@ const CaptchaImageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-`;
-const CaptchaImage = styled.img`
-  width: 126px;
-  height: 126px;
-  object-fit: cover;
 `;
 const SubmitButton = styled.button`
   width: 100px;
