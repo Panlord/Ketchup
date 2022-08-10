@@ -30,7 +30,7 @@ class ImageCaptcha extends React.Component {
     super(props);
     this.state = {
       images: [], // An array of image objects (each image object: { url: String, name: String})
-      answer: [], // An array of the correct image objects
+      answers: [], // An array of the correct image objects
       selected: [], // An array of the selected objects
       gotWrong: false,
     };
@@ -53,7 +53,7 @@ class ImageCaptcha extends React.Component {
       for (let i = 0; i < numberOfAnswers; i++) {
         // Construct an image object and add it to the updated states
         let selection = {
-          url: generateAnimalImage(category),
+          url: this.generateAnimalImage(category),
           correct: true
         }
         images.push(selection);
@@ -67,13 +67,13 @@ class ImageCaptcha extends React.Component {
       // For the rest of the selection slots, construct the image objects and add them to the updated states
       for (let j = 0; j < 9 - numberOfAnswers; j++) {
         let selection = {
-          url: generateAnimalImage(category),
+          url: this.generateAnimalImage(otherCategory),
           correct: false
         }
         images.push(selection);
       }
       // Now actually update the states
-      this.setState({answer: answers, images: images});
+      this.setState({answers: answers, images: images});
     }
   }
 
@@ -98,15 +98,13 @@ class ImageCaptcha extends React.Component {
     }
   }
 
-  // Helper function to check if two inputted arrays are the same
-  arraysEqual (first, second) {
-    first.sort();
-    second.sort();
-    if (first.length !== second.length) {
+  // Helper function to check if the whole selection is the correct answer
+  checkAnswer () {
+    if (this.state.answers.length !== this.state.selected.length) {
       return false;
     }
-    for (let i = 0; i < first.length; i++) {
-      if (first[i] !== second[i]) {
+    for (let i = 0; i < this.state.answers.length; i++) {
+      if (!this.state.answers[i].correct) {
         return false;
       }
     }
@@ -116,8 +114,7 @@ class ImageCaptcha extends React.Component {
   // Function to handle submitting the captcha answer
   handleSubmit (event) {
     event.preventDefault();
-    let isCorrect = arraysEqual(this.state.answer, this.state.selected);
-    if (isCorrect) {
+    if (this.checkAnswer) {
       // Increase the score by 1
       this.props.increaseScore(1);
       // First 5 points are all from text captchas
@@ -139,6 +136,11 @@ class ImageCaptcha extends React.Component {
     } else {
       this.setState({gotWrong: true});
     }
+  }
+
+  // On component mounting, get its data
+  componentDidMount () {
+    this.refreshComponent();
   }
 
   render () {
