@@ -20,9 +20,18 @@ class ImageCaptchaThumbnail extends React.Component {
   }
 
   render () {
+    let image;
+    if (this.state.selected) {
+      image = <SelectedCaptchaImageWrapper>
+          <SelectedCaptchaImage src={this.props.imgUrl} alt="" onClick={this.handleClick.bind(this)} />
+        </SelectedCaptchaImageWrapper>;
+    } else {
+      image = <CaptchaImage src={this.props.imgUrl} alt="" onClick={this.handleClick.bind(this)} />;
+    }
+
     return (
       <div>
-        <CaptchaImage src={this.props.imgUrl} alt="" onClick={this.handleClick.bind(this)} />
+        {image}
       </div>
     );
   }
@@ -39,6 +48,18 @@ const SelectionIndicator = styled.div`
 const CaptchaImage = styled.img`
   width: 126px;
   height: 126px;
+  object-fit: cover;
+`;
+const SelectedCaptchaImageWrapper = styled.div`
+  width: 126px;
+  height: 126px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const SelectedCaptchaImage = styled.img`
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 `;
 
