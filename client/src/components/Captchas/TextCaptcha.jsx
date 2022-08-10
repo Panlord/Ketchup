@@ -19,6 +19,7 @@ class TextCaptcha extends React.Component {
     axios.get('./ketchup/textCaptcha')
       .then((results) => {
         console.log(results);
+        this.setState({captchaImgSrc: results.data.url, answer: results.data.answer})
       })
       .catch((error) => {
         console.log(error);
@@ -29,6 +30,7 @@ class TextCaptcha extends React.Component {
     return (
       <div>
         Text Captcha Goes here.
+        <img src={this.state.captchaImgSrc} />
       </div>
     );
   }

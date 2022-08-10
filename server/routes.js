@@ -6,7 +6,7 @@ var router = require('express').Router();
 
 // Get the files ready to be served, on server start
 var images;
-fs.readdir(path.join(__dirname, '../database/textCaptchaImages'), (error, files) => {
+fs.readdir(path.join(__dirname, '../client/dist/assets/textCaptchaImages'), (error, files) => {
   if (error) {
     console.log('Error in loading images:', error);
   } else {
@@ -35,14 +35,11 @@ router.get('/textCaptcha', (request, response) => {
   // Choose a random image file
   let chosenImage = images[Math.floor(Math.random() * images.length)];
   // Construct object with the captcha's data
-  response.set({ 'Content-Type': 'image/png' });
-  fs.readFileSync(path.join(__dirname, '../database/textCaptchaImages', chosenImage), (error, content) => {
-    if (error) {
-      response.status(500).send();
-    } else {
-      response.send(content);
-    }
-  });
+  let imageObject = {
+    url: path.join('/assets/textCaptchaImages', chosenImage),
+    answer: chosenImage.split('.')[0]
+  }
+  response.status(200).send(imageObject);
 });
 
 module.exports = router;
