@@ -24,6 +24,8 @@ axios.post('https://api.waifu.pics/many/sfw/waifu', { exclude: [] })
   .catch((error) => {
     console.log("Something wrong happened when collecting the waifus.");
   });
+// Load the Keanu lookalikes
+var fakeKeanu = ["/assets/KeanuLookalikes/AdamDriver.jpeg", "/assets/KeanuLookalikes/Markiplier1.jpeg", "/assets/KeanuLookalikes/Markiplier2.jpeg", "/assets/KeanuLookalikes/moistcr1tikal.jpeg", "/assets/KeanuLookalikes/PaulMounet.jpeg"];
 
 class ImageCaptcha extends React.Component {
   constructor(props) {
@@ -38,10 +40,30 @@ class ImageCaptcha extends React.Component {
 
   // Function to randomize the image/API selections
   refreshComponent () {
-    let category = Math.random() > 0.75 ? categories[1] : categories[2];
+    let category = (Math.random() > 0.75) ? categories[1] : categories[2];
     if (category === "Keanu") {
       // Populate images state array with Keanus and Keanu lookalikes
-
+      let images = [];
+      let answers = [];
+      let indexFakeKeanu = 0;
+      for (let i = 0; i < 9; i++) {
+        if (Math.random() > 0.5 && indexFakeKeanu < fakeKeanu.length) {
+          let selection = {
+            url: fakeKeanu[indexFakeKeanu],
+            correct: false
+          }
+          images.push(selection);
+          indexFakeKeanu++;
+        } else {
+          let selection = {
+            url: "https://placekeanu.com/126/126",
+            correct: true
+          }
+          images.push(selection);
+          answers.push(selection);
+        }
+        this.setState({answers: answers, images: images});
+      }
     } else {
       // Prepare to update the states
       let images = [];
@@ -81,7 +103,7 @@ class ImageCaptcha extends React.Component {
   generateAnimalImage (category) {
     switch (category) {
       case "cats":
-        return ("https://placekitten.com/126/126");
+        return (`https://placekitten.com/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
         // return (<CaptchaImage src="https://placekitten.com/126/126" alt="" />);
       case "dogs":
         return ("https://place.dog/126/126");
@@ -146,8 +168,11 @@ class ImageCaptcha extends React.Component {
   render () {
     return (
       <div>
-        Image Captcha Goes here.
         {this.state.gotWrong && <IncorrectMessage />}
+        {this.state.images.map((image) => {
+          console.log(image);
+          return <CaptchaImage src={image.url} />
+        })}
       </div>
     );
   }
