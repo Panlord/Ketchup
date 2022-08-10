@@ -19,7 +19,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 1,
+      stage: 0,
       score: 0,
       time: 0,
     }
