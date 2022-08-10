@@ -23,14 +23,32 @@ class TextCaptcha extends React.Component {
   handleSubmit (event) {
     event.preventDefault();
     if (this.state.value === this.state.answer) {
+      // Increase the score by 1
+      this.props.increaseScore(1);
+      // First 5 points are all from text captchas
+      if (this.props.currentScore < 5) {
+        // Refresh the text component with new data
+        this.refreshComponent();
+      // After scoring the 5th point, proceed to stage 2
+      } else if (this.props.currentScore === 5) {
+        this.props.changeStage(2);
+      // After 15 points, change stage to 2, 3, or 4
+      } else if (this.props.currentScore > 15 && this.props.currentScore < 100) {
+        let nextStage = Math.ceil(Math.random() * 4);
+        if (nextStage === 1) {
+          this.refreshComponent();
+        } else {
+          this.props.changeStage(nextStage);
+        }
+      }
       // this.setState({gotWrong: false});
     } else {
       this.setState({gotWrong: true});
     }
   }
 
-  // On component mounting, randomly initialize states
-  componentDidMount () {
+  // Function to refresh the component with new data
+  refreshComponent () {
     // Get random text captcha from the server
     axios.get('./ketchup/textCaptcha')
       .then((results) => {
@@ -42,6 +60,11 @@ class TextCaptcha extends React.Component {
       });
   }
 
+  // On component mounting, randomly initialize states
+  componentDidMount () {
+   this.refreshComponent();
+  }
+
   render () {
     return (
       <TextCaptchaContainer>
@@ -50,7 +73,7 @@ class TextCaptcha extends React.Component {
         <BottomContainer>
           <AnswerInputContainer>
             <AnswerInputLabel>Type the characters you see in the picture:</AnswerInputLabel>
-            <AnswerInputField type="text" onChange={this.handleChange.bind(this)} />
+            <AnswerInputField type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
           </AnswerInputContainer>
           <SubmitButton onClick={this.handleSubmit.bind(this)}>Submit</SubmitButton>
         </BottomContainer>

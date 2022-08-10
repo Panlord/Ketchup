@@ -25,6 +25,11 @@ class Game extends React.Component {
     }
   };
 
+  // Function to increase the score by one
+  increaseScore (value) {
+    this.setState({score: this.state.score + value});
+  }
+
   // Function to change the stage of the game
   // Input: number representing the stage to go to
   handleStageChange (nextStage) {
@@ -38,13 +43,13 @@ class Game extends React.Component {
         captcha = <GoogleCaptcha changeStage={this.handleStageChange.bind(this)} />;
         break;
       case 1:
-        captcha = <TextCaptcha />;
+        captcha = <TextCaptcha currentScore={this.state.score} increaseScore={this.increaseScore.bind(this)} changeStage={this.handleStageChange.bind(this)} />;
         break;
       case 2:
-        captcha = <ImageCaptcha />;
+        captcha = <ImageCaptcha currentScore={this.state.score} increaseScore={this.increaseScore.bind(this)} changeStage={this.handleStageChange.bind(this)} />;
         break;
       case 3:
-        captcha = <SoundCaptcha />;
+        captcha = <SoundCaptcha currentScore={this.state.score} increaseScore={this.increaseScore.bind(this)} changeStage={this.handleStageChange.bind(this)} />;
         break;
       case 4:
         captcha = <div>Should be interesting</div>;
