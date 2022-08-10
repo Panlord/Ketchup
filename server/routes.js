@@ -1,8 +1,19 @@
 // Server routing
 const axios = require('axios');
-
+const fs = require('fs');
+const path = require('path');
 var router = require('express').Router();
 
+// Get the files ready to be served, on server start
+var images;
+fs.readdir(path.join(__dirname, '../database/textCaptchaImages'), (error, files) => {
+  if (error) {
+    console.log('Error in loading images:', error);
+  } else {
+    images = files;
+    console.log('Got the images');
+  }
+});
 
 // Function to send valid reCaptcha token data to Google
 router.post('/validateToken', (request, response) => {
@@ -16,6 +27,22 @@ router.post('/validateToken', (request, response) => {
       // May need to edit this status code
       response.status(500).send(error);
     })
+});
+
+// GET request --  retrieve random text captcha file and its data
+// Returns an object with img
+router.get('/textCaptcha', (request, response) => {
+  // Choose a random image file
+  let chosenImage = images[Math.floor(Math.random() * images.length)];
+  // Construct object with the captcha's data
+  response.set({ 'Content-Type': 'image/png' });
+  fs.readFileSync(path.join(__dirname, '../database/textCaptchaImages', chosenImage), (error, content) => {
+    if (error) {
+      response.status(500).send();
+    } else {
+      response.send(content);
+    }
+  });
 });
 
 module.exports = router;
