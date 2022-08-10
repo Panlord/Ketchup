@@ -56,7 +56,7 @@ class ImageCaptcha extends React.Component {
           indexFakeKeanu++;
         } else {
           let selection = {
-            url: "https://placekeanu.com/126/126",
+            url: `https://placekeanu.com/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`,
             correct: true
           }
           images.push(selection);
