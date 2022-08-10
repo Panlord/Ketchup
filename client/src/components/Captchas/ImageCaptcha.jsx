@@ -101,15 +101,16 @@ class ImageCaptcha extends React.Component {
 
   // Function to generate a random image given an ANIMAL category
   generateAnimalImage (category) {
+    let dimension = Math.ceil(Math.random() * 126) + 126;
     switch (category) {
       case "cats":
-        return (`https://placekitten.com/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
+        return (`https://placekitten.com/${dimension}/${dimension}`);
         // return (<CaptchaImage src="https://placekitten.com/126/126" alt="" />);
       case "dogs":
-        return (`https://place.dog/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
+        return (`https://place.dog/${dimension}/${dimension}`);
         // return (<CaptchaImage src="https://place.dog/126/126" alt="" />);
       case "bears":
-        return (`https://placebear.com/${Math.ceil(Math.random() * 126) + 126}/${Math.ceil(Math.random() * 126) + 126}`);
+        return (`https://placebear.com/${dimension}/${dimension}`);
         // return (<CaptchaImage src="https://placebear.com/126/126" alt="" />);
       case "ducks":
         return (`https://random-d.uk/api/${Math.ceil(Math.random() * 100)}.jpg`);
