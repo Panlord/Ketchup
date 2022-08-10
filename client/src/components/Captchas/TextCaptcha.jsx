@@ -8,10 +8,25 @@ class TextCaptcha extends React.Component {
     this.state = {
       captchaImgSrc: '',
       answer: '',
+      value: '',
+      gotWrong: false,
     };
   }
 
+  // Function to handle user input into answer field of text captcha
+  handleChange (event) {
+    this.setState({value: event.target.value});
+  }
+
   // Function to handle submitting the captcha answer
+  handleSubmit (event) {
+    event.preventDefault();
+    if (this.state.value === this.state.answer) {
+      // this.setState({gotWrong: false});
+    } else {
+      this.setState({gotWrong: true});
+    }
+  }
 
   // On component mounting, randomly initialize states
   componentDidMount () {
@@ -33,9 +48,9 @@ class TextCaptcha extends React.Component {
         <BottomContainer>
           <AnswerInputContainer>
             <AnswerInputLabel>Type the characters you see in the picture:</AnswerInputLabel>
-            <AnswerInputField type="text" />
+            <AnswerInputField type="text" onChange={this.handleChange.bind(this)} />
           </AnswerInputContainer>
-          <SubmitButton>Submit</SubmitButton>
+          <SubmitButton onClick={this.handleSubmit.bind(this)}>Submit</SubmitButton>
         </BottomContainer>
       </TextCaptchaContainer>
     );
@@ -75,6 +90,9 @@ const AnswerInputField = styled.input`
 `;
 const SubmitButton = styled.button`
   border-radius: 4px;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export default TextCaptcha;
