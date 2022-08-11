@@ -6,7 +6,7 @@ const Games = () => {
 
   return (
     <GameLinksDiv>
-      <div>Game 1</div>
+      <a href="https://github.com/Panlord/ESCapeFromKemper-WebGLBuild"><MVPImage src="https://panlord.github.io/game-power-down/EscapeFromKemper/images/MenuScreen.png" alt="Old Game"/></a>
       <Link to="/captcha"><MVPImage src="/assets/mvpImg.png" alt="MVP"/></Link>
     </GameLinksDiv>
   );
