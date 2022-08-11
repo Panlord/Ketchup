@@ -4,16 +4,22 @@ import styled from 'styled-components';
 const Home = () => {
   return (
     <HomeDiv>
-      <WIPImage src="https://media.istockphoto.com/photos/barrier-under-construction-picture-id1139968862" />
+      <div>Hi I'm Aaron and this is under construction. If you're here for MVP please go to the Games section.</div>
+      <WIPImage src="/assets/placeholder.png" />
     </HomeDiv>
   );
 }
 
 const HomeDiv = styled.div`
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const WIPImage = styled.img`
-
+  width: 60%;
+  height: 40%;
+  object-fit: cover;
 `;
 
 export default Home;
