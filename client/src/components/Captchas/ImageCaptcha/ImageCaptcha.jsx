@@ -175,7 +175,7 @@ class ImageCaptcha extends React.Component {
     event.preventDefault();
     if (this.checkAnswer()) {
       // Increase the score by 1
-      this.props.increaseScore(1);
+      this.props.increaseScore(2);
       // First 6-10 points are all from text captchas
       if (this.props.currentScore < 10) {
         // Refresh the text component with new data

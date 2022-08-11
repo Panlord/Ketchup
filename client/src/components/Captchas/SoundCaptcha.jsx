@@ -40,7 +40,7 @@ class SoundCaptcha extends React.Component {
   handleSubmit (event) {
     event.preventDefault();
     if (this.state.answer === this.state.input) {
-      this.props.increaseScore(1);
+      this.props.increaseScore(2);
       // First 10-15 points are all from text captchas
       if (this.props.currentScore < 15) {
         // Refresh the text component with new data
