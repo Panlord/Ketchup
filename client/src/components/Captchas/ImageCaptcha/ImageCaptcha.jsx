@@ -184,8 +184,8 @@ class ImageCaptcha extends React.Component {
       } else if (this.props.currentScore === 10) {
         this.props.changeStage(3);
       // After 15 points, change stage to 1, 3, or 4
-      } else if (this.props.currentScore > 15 && this.props.currentScore < 100) {
-        let nextStage = Math.ceil(Math.random() * 4);
+      } else if (this.props.currentScore > 15) {
+        let nextStage = Math.ceil(Math.random() * 3);
         if (nextStage === 2) {
           this.refreshComponent();
         } else {

@@ -41,16 +41,17 @@ class SoundCaptcha extends React.Component {
     event.preventDefault();
     if (this.state.answer === this.state.input) {
       this.props.increaseScore(1);
-      // First 6-10 points are all from text captchas
+      // First 10-15 points are all from text captchas
       if (this.props.currentScore < 15) {
         // Refresh the text component with new data
         this.refreshComponent();
-      // After scoring the 10th point, proceed to stage 4(?)
-      } else if (this.props.currentScore === 15) {
-        this.props.changeStage(4);
+      // This feature is in development:
+      // // After scoring the 15th point, proceed to stage 4(?)
+      // } else if (this.props.currentScore === 15) {
+      //   this.props.changeStage(4);
       // After 15 points, change to any stage
-      } else if (this.props.currentScore > 15 && this.props.currentScore < 100) {
-        let nextStage = Math.ceil(Math.random() * 4);
+      } else if (this.props.currentScore > 15) {
+        let nextStage = Math.ceil(Math.random() * 3);
         if (nextStage === 3) {
           this.refreshComponent();
         } else {

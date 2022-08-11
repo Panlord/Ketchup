@@ -27,6 +27,7 @@ class ScoreForm extends React.Component {
     } else {
       axios.post('/ketchup/newScore', { name: this.state.name, score: this.props.score, time: this.props.time })
         .then(() => {
+          console.log('Score Submitted! Switching to scoreboard.')
           this.props.changeStage(10);
         })
         .catch((error) => {

@@ -36,7 +36,7 @@ class Game extends React.Component {
   increaseScore (value) {
     this.setState({score: this.state.score + value});
     // Also increase the time by a few seconds
-    deadline += 5000;
+    deadline += 2500;
   }
 
   // Function to change the stage of the game
@@ -57,12 +57,6 @@ class Game extends React.Component {
     } else {
       this.setState({stage: 9, time: (Date.now() - this.state.startTime) / 1000})
     }
-  }
-
-  // Function to handle score form submission
-  handleScoreSubmit (event) {
-    event.preventDefault();
-
   }
 
   render () {
@@ -95,7 +89,7 @@ class Game extends React.Component {
     <div>
       {captcha}
       {this.state.stage > 0 && this.state.stage !== 9 && <Timer deadline={deadline} endGame={this.handleGameEnd.bind(this)} />}
-      {this.state.stage > 0 && <ReactAudioPlayer src="/assets/ColressBattle_Zame.mp3" autoPlay={true} volume={0.1} />}
+      {this.state.stage > 0 && <ReactAudioPlayer src="/assets/ColressBattle_Zame.mp3" autoPlay={true} volume={0.1} loop={true} />}
     </div>
   );
   };
