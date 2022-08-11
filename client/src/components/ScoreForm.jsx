@@ -25,9 +25,9 @@ class ScoreForm extends React.Component {
     } else if (this.state.name.length > 15) {
       this.setState({nameTooLong: false});
     } else {
-      axios.post('./newScore', { name: this.state.name, score: props.score, time: props.time })
+      axios.post('/ketchup/newScore', { name: this.state.name, score: this.props.score, time: this.props.time })
         .then(() => {
-
+          console.log('DONE!');
         })
         .catch((error) => {
           console.log('Something went wrong when trying to upload your new score. Error:', error);
@@ -37,6 +37,7 @@ class ScoreForm extends React.Component {
 
   render () {
     return (
+      <div>
       <Form onSubmit={this.handleSubmit.bind(this)} >
         {this.state.needName && <NameWarning>You need to input your name.</NameWarning>}
         {this.state.nameTooLong && <NameWarning>Your name is too long.</NameWarning>}
@@ -47,6 +48,8 @@ class ScoreForm extends React.Component {
         <LabelSpan>Time:</LabelSpan>
         <StatSpan>{this.props.time}</StatSpan>
       </Form>
+      <SubmitButton type="submit" >Submit</SubmitButton>
+      </div>
     );
   }
 }
@@ -73,6 +76,9 @@ const LabelSpan = styled.span`
 
 `;
 const StatSpan = styled.span`
+
+`;
+const SubmitButton = styled.button`
 
 `;
 

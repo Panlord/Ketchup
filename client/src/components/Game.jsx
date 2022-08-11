@@ -34,7 +34,8 @@ class Game extends React.Component {
   // Function to increase the score by a value
   increaseScore (value) {
     this.setState({score: this.state.score + value});
-    // Also increase the time
+    // Also increase the time by a few seconds
+    deadline += 5000;
   }
 
   // Function to change the stage of the game
