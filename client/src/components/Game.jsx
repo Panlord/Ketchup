@@ -88,7 +88,7 @@ class Game extends React.Component {
   return (
     <div>
       {captcha}
-      {this.state.stage > 0 && this.state.stage !== 9 && <Timer deadline={deadline} endGame={this.handleGameEnd.bind(this)} />}
+      {this.state.stage > 0 && this.state.stage < 9 && <Timer deadline={deadline} endGame={this.handleGameEnd.bind(this)} />}
       {this.state.stage > 0 && <ReactAudioPlayer src="/assets/ColressBattle_Zame.mp3" autoPlay={true} volume={0.1} loop={true} />}
     </div>
   );
