@@ -96,12 +96,23 @@ class Game extends React.Component {
       {captcha}
       {this.state.stage > 0 && this.state.stage < 9 && <Timer deadline={deadline} endGame={this.handleGameEnd.bind(this)} />}
       {this.state.stage > 0 && <ReactAudioPlayer src="/assets/ColressBattle_Zame.mp3" autoPlay={true} volume={0.1} loop={true} muted={!this.state.music} />}
-      {this.state.stage > 0 && <button type="button" onClick={this.muteMusic.bind(this)}>Mute Music</button>}
+      {this.state.stage > 0 && <MuteMusicButton type="button" onClick={this.muteMusic.bind(this)}>Mute Music</MuteMusicButton>}
+      {this.state.stage > 0 && <ScoreDisplay>Score: {this.state.score}</ScoreDisplay>}
     </div>
   );
   };
 };
 
-
+const MuteMusicButton = styled.button`
+  position: absolute;
+  top: 10%;
+  right: 0%;
+`;
+const ScoreDisplay = styled.span`
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  font-size: 30px;
+`;
 
 export default Game;
