@@ -1,6 +1,10 @@
 import React from 'react';
 import GoogleCaptcha from './Captchas/GoogleCaptcha.jsx';
 import styled from 'styled-components';
+import Navbar from './Navbar.jsx';
+import Home from './Home.jsx';
+import About from './About.jsx';
+import Games from './Games.jsx';
 import Game from './Game.jsx';
 import Scores from './Scores.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -20,9 +24,12 @@ class App extends React.Component {
   render () {
     return (
       <BrowserRouter>
+        <Navbar />
         <Routes>
-            <Route path="/" element={<Game />} />
-            <Route path="scores" element={<Scores />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/captcha" element={<Game />} />
         </Routes>
       </BrowserRouter>
     );

@@ -12,9 +12,12 @@ app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 app.use(bodyParser.json());
 app.use('/ketchup', router);
 
-app.get('/test', (req, res) => {
-  res.send('it works');
-});
-
+app.get('/*', (request, response) => {
+  response.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'), (error) => {
+    if (error) {
+      response.status(500).send(error);
+    }
+  })
+})
 
 app.listen(PORT, () => console.log(`Server running on localhost:${PORT}`));

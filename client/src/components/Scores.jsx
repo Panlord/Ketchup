@@ -62,7 +62,7 @@ const TableHeader = styled.div`
 `;
 const DataDiv = styled.div`
   width: 40px;
-  height: 58px;
+  height: 40px;
   padding: 10px;
 `;
 
