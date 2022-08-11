@@ -1,11 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
+import Timer from './CountdownTimer.jsx';
+import ReactAudioPlayer from 'react-audio-player';
 import GoogleCaptcha from './Captchas/GoogleCaptcha.jsx';
 import TextCaptcha from './Captchas/TextCaptcha.jsx';
 import ImageCaptcha from './Captchas/ImageCaptcha/ImageCaptcha.jsx';
 import SoundCaptcha from './Captchas/SoundCaptcha.jsx';
-import styled from 'styled-components';
-import Timer from './CountdownTimer.jsx';
-import ReactAudioPlayer from 'react-audio-player';
+import ScoreForm from './ScoreForm.jsx';
 
 /* Stages
   0 - default: solve Google reCaptcha
@@ -26,12 +27,14 @@ class Game extends React.Component {
       stage: 0,
       score: 0,
       time: 0,
+      startTime: 0
     }
   };
 
-  // Function to increase the score by one
+  // Function to increase the score by a value
   increaseScore (value) {
     this.setState({score: this.state.score + value});
+    // Also increase the time
   }
 
   // Function to change the stage of the game
@@ -40,6 +43,7 @@ class Game extends React.Component {
     // If the stage we just finished was stage 1, start the timer
     if (this.state.stage === 0) {
       deadline = Date.now() + 60000;
+      this.setState({startTime: Date.now()});
     }
     this.setState({stage: nextStage});
   };
@@ -47,9 +51,9 @@ class Game extends React.Component {
   // Function to handle game over
   handleGameEnd (didLose) {
     if (didLose) {
-      this.setState({stage: 9, time: 0})
+      this.setState({stage: 9, time: (Date.now() - this.state.startTime) / 1000})
     } else {
-      this.setState({stage: 9, time: (Date.now() - deadline) / 1000})
+      this.setState({stage: 9, time: (Date.now() - this.state.startTime) / 1000})
     }
   }
 
@@ -78,14 +82,7 @@ class Game extends React.Component {
         captcha = <div>Should be interesting</div>;
         break;
       case 9:
-        captcha = <ScoreForm>
-                    Input your username:
-                    <UsernameInput type="text" />
-                    Score:
-                    <span>{this.state.score}</span>
-                    Time Left:
-                    <span>{this.state.time}</span>
-                  </ScoreForm>
+        captcha = <ScoreForm score={this.state.score} time={this.state.time} />
   }
 
   return (
@@ -98,11 +95,6 @@ class Game extends React.Component {
   };
 };
 
-const ScoreForm = styled.form`
 
-`;
-const UsernameInput = styled.input`
-
-`;
 
 export default Game;
