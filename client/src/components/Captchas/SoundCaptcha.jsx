@@ -90,7 +90,10 @@ class SoundCaptcha extends React.Component {
       <SoundCaptchaWrapper onSubmit={this.handleSubmit.bind(this)} >
         {this.state.gotWrong && <IncorrectMessage />}
         Play the audio and enter the word.
-        <AudioPlay type="button" onClick={this.handlePlay.bind(this)}>Speak</AudioPlay>
+        <div>
+          <AudioPlay type="button" onClick={this.handlePlay.bind(this)}>Speak</AudioPlay>
+          <RefreshButton type="button" onClick={this.refreshComponent.bind(this)}>Refresh</RefreshButton>
+        </div>
         <TextInput type="text" value={this.state.input} onChange={this.handleInput.bind(this)} />
         <SubmitButton type="submit">Submit</SubmitButton>
       </SoundCaptchaWrapper>
@@ -114,6 +117,9 @@ const TextInput = styled.input`
   height: 20px;
 `;
 const SubmitButton = styled.button`
+
+`;
+const RefreshButton = styled.button`
 
 `;
 
