@@ -8,7 +8,7 @@ setTimeout(() => {window.speechSynthesis.getVoices();}, 50);
 var selectedVoices = [0, 10, 37, 41, 49, 50, 51, 58];
 msg.volume = 0.6;
 msg.rate = 1;
-var wordBank = ['ligma', 'deez nutz', 'anthony', 'banana', 'apple', 'frog', 'table', 'god', 'water', 'squish', 'bottom', 'butter', 'purple', 'flower', 'dandelion', 'sidewalk', 'lightpost', 'cat', 'base', 'picture', 'hood', 'car', 'tree', 'bike', 'donkey', 'dog', 'dinosaur', 'tyrannosaurus', 'camel', 'beer', 'pikachu', 'bug', 'mosquito', 'apricot', 'hammer', 'mountain', 'coffee', 'pen', 'paper', 'shelf', 'jacket', 'spicy', 'honey', 'salty'];
+var wordBank = ['ligma', 'deez nutz', 'anthony', 'banana', 'apple', 'frog', 'table', 'god', 'water', 'squish', 'bottom', 'butter', 'purple', 'flower', 'dandelion', 'sidewalk', 'lightpost', 'cat', 'base', 'picture', 'hood', 'car', 'tree', 'bike', 'donkey', 'dog', 'dinosaur', 'tyrannosaurus', 'camel', 'beer', 'pikachu', 'bug', 'mosquito', 'apricot', 'hammer', 'mountain', 'coffee', 'pen', 'paper', 'shelf', 'jacket', 'spicy', 'honey', 'salty', 'melt', 'happy', 'mom', 'dad', 'game', 'pterodactyl', 'chihuahua', 'programming', 'javascript', 'despair', 'life', 'spy', 'alcohol', 'carbohydrate', 'lipid', 'limit', 'ready', 'cucumber', 'ant', 'word', 'react', 'soju', 'death', 'fortune', 'bottle', 'sheep', 'cow', 'chicken', 'mammoth', 'marsupial', 'meteor', 'ostrich', 'shark', 'persona', 'joker', 'triceratops', 'camera', 'number fifteen burger king foot lettuce', 'family', 'titan', 'attack', 'beautiful'];
 
 class SoundCaptcha extends React.Component {
   constructor(props) {
