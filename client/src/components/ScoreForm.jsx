@@ -27,7 +27,7 @@ class ScoreForm extends React.Component {
     } else {
       axios.post('/ketchup/newScore', { name: this.state.name, score: this.props.score, time: this.props.time })
         .then(() => {
-          console.log('DONE!');
+          this.props.changeStage(10);
         })
         .catch((error) => {
           console.log('Something went wrong when trying to upload your new score. Error:', error);
@@ -47,8 +47,8 @@ class ScoreForm extends React.Component {
         <StatSpan>{this.props.score}</StatSpan>
         <LabelSpan>Time:</LabelSpan>
         <StatSpan>{this.props.time}</StatSpan>
+        <SubmitButton type="submit" >Submit</SubmitButton>
       </Form>
-      <SubmitButton type="submit" >Submit</SubmitButton>
       </div>
     );
   }
@@ -57,10 +57,12 @@ class ScoreForm extends React.Component {
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  background-color: gray;
+  background-color: #d7d7d5;
+  padding: 20px;
+  border: solid 2px;
 `;
 const NameInput = styled.input`
-
+  padding: 2px;
 `;
 const NameWarning = styled.span`
   position: absolute;
@@ -73,10 +75,11 @@ const NameWarning = styled.span`
   padding: 20px 40px;
 `;
 const LabelSpan = styled.span`
-
+  padding: 2px;
 `;
 const StatSpan = styled.span`
-
+  padding: 2px;
+  font-weight: bold;
 `;
 const SubmitButton = styled.button`
 

@@ -84,7 +84,7 @@ class Game extends React.Component {
         captcha = <div>This is a placeholder. If you see this, contact me.</div>;
         break;
       case 9:
-        captcha = <ScoreForm score={this.state.score} time={this.state.time} />
+        captcha = <ScoreForm score={this.state.score} time={this.state.time} changeStage={this.handleStageChange.bind(this)} />
         break;
       case 10:
         captcha = <Scores />;
