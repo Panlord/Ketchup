@@ -4,6 +4,7 @@ import TextCaptcha from './Captchas/TextCaptcha.jsx';
 import ImageCaptcha from './Captchas/ImageCaptcha/ImageCaptcha.jsx';
 import SoundCaptcha from './Captchas/SoundCaptcha.jsx';
 import styled from 'styled-components';
+import Timer from './CountdownTimer.jsx';
 
 /* Stages
   0 - default: solve Google reCaptcha
@@ -14,6 +15,8 @@ import styled from 'styled-components';
   9 - post score screen
   10 - high scores
 */
+
+var deadline;
 
 class Game extends React.Component {
   constructor(props) {
@@ -33,8 +36,27 @@ class Game extends React.Component {
   // Function to change the stage of the game
   // Input: number representing the stage to go to
   handleStageChange (nextStage) {
+    // If the stage we just finished was stage 1, start the timer
+    if (this.state.stage === 0) {
+      deadline = Date.now() + 60000;
+    }
     this.setState({stage: nextStage});
   };
+
+  // Function to handle game over
+  handleGameEnd (didLose) {
+    if (didLose) {
+      this.setState({stage: 9, time: 0})
+    } else {
+      this.setState({stage: 9, time: (Date.now() - deadline) / 1000})
+    }
+  }
+
+  // Function to handle score form submission
+  handleScoreSubmit (event) {
+    event.preventDefault();
+
+  }
 
   render () {
     let captcha;
@@ -54,14 +76,31 @@ class Game extends React.Component {
       case 4:
         captcha = <div>Should be interesting</div>;
         break;
-    }
+      case 9:
+        captcha = <ScoreForm>
+                    Input your username:
+                    <UsernameInput type="text" />
+                    Score:
+                    <span>{this.state.score}</span>
+                    Time Left:
+                    <span>{this.state.time}</span>
+                  </ScoreForm>
+  }
 
-    return (
-      <div>
-        {captcha}
-      </div>
-    );
+  return (
+    <div>
+      {captcha}
+      {this.state.stage > 0 && this.state.stage !== 9 && <Timer deadline={deadline} endGame={this.handleGameEnd.bind(this)} />}
+    </div>
+  );
   };
 };
+
+const ScoreForm = styled.form`
+
+`;
+const UsernameInput = styled.input`
+
+`;
 
 export default Game;
