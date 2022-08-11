@@ -7,7 +7,7 @@ const Games = () => {
   return (
     <GameLinksDiv>
       <div>Game 1</div>
-      <Link to="/captcha"><div>MVP</div></Link>
+      <Link to="/captcha"><MVPImage src="/assets/mvpImg.png" alt="MVP"/></Link>
     </GameLinksDiv>
   );
 }
@@ -19,6 +19,11 @@ const GameLinksDiv = styled.div`
   align-items: center;
   width: 100%;
   height: 80%;
+`;
+const MVPImage = styled.img`
+  width: 430px;
+  height: 265px;
+  object-fit: cover;
 `;
 
 export default Games;
