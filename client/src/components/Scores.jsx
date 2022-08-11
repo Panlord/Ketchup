@@ -25,39 +25,45 @@ class Scores extends React.Component {
 
   render () {
     return (
-      <div>
-        <TableHeader>Name</TableHeader>
-        <TableHeader>Score</TableHeader>
-        <TableHeader>Time</TableHeader>
+      <Table>
+        <RowWrapper>
+          <TableHeader>Name</TableHeader>
+          <TableHeader>Score</TableHeader>
+          <TableHeader>Time</TableHeader>
+        </RowWrapper>
         {this.state.scores.map((score, index) => {
           return (
-            <div>
+            <RowWrapper key={`row${index}`}>
               <DataDiv key={`name${index}`} >{score.name}</DataDiv>
               <DataDiv key={`score${index}`} >{score.score}</DataDiv>
               <DataDiv key={`time${index}`} >{score.time}</DataDiv>
-            </div>
+            </RowWrapper>
           );
         })}
-      </div>
+      </Table>
     );
   }
 }
 
 const Table = styled.div`
-  width: 402px;
-  height: 585px;
+  border: solid 2px;
+  padding: 50px;
+`;
+const RowWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
 `;
+// TableHeader should match Datadiv
 const TableHeader = styled.div`
   width: 40px;
   height: 58px;
   font-weight: bold;
+  padding: 10px
 `;
 const DataDiv = styled.div`
   width: 40px;
   height: 58px;
+  padding: 10px;
 `;
 
 export default Scores;
