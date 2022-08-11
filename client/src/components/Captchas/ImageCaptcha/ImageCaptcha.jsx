@@ -208,7 +208,8 @@ class ImageCaptcha extends React.Component {
         {this.state.gotWrong && <IncorrectMessage />}
         <CaptchaContainer>
           <CaptchaInstructions>
-            Select all images of {this.state.category}.
+            <span>Select all images of {this.state.category}.</span>
+            <RefreshButton type="button" onClick={this.refreshComponent.bind(this)} >Refresh</RefreshButton>
           </CaptchaInstructions>
           <CaptchaImageContainer>
             {this.state.images.map((image, index) => {
@@ -237,6 +238,14 @@ const CaptchaInstructions = styled.div`
   background-color: #009ff5;
   justify-content: center;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+const RefreshButton = styled.button`
+  width: 100px;
+  height: 42px;
 `;
 const CaptchaImageContainer = styled.div`
   display: flex;
