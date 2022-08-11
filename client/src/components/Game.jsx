@@ -28,7 +28,8 @@ class Game extends React.Component {
       stage: 0,
       score: 0,
       time: 0,
-      startTime: 0
+      startTime: 0,
+      music: true,
     }
   };
 
@@ -57,6 +58,11 @@ class Game extends React.Component {
     } else {
       this.setState({stage: 9, time: (Date.now() - this.state.startTime) / 1000})
     }
+  }
+
+  // Function to mute background music
+  muteMusic () {
+    this.setState({music: !this.state.music});
   }
 
   render () {
@@ -89,7 +95,8 @@ class Game extends React.Component {
     <div>
       {captcha}
       {this.state.stage > 0 && this.state.stage < 9 && <Timer deadline={deadline} endGame={this.handleGameEnd.bind(this)} />}
-      {this.state.stage > 0 && <ReactAudioPlayer src="/assets/ColressBattle_Zame.mp3" autoPlay={true} volume={0.1} loop={true} />}
+      {this.state.stage > 0 && <ReactAudioPlayer src="/assets/ColressBattle_Zame.mp3" autoPlay={true} volume={0.1} loop={true} muted={!this.state.music} />}
+      {this.state.stage > 0 && <button type="button" onClick={this.muteMusic.bind(this)}>Mute Music</button>}
     </div>
   );
   };
