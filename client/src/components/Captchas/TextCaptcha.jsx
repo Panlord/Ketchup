@@ -75,7 +75,8 @@ class TextCaptcha extends React.Component {
             <AnswerInputLabel>Type the characters you see in the picture:</AnswerInputLabel>
             <AnswerInputField type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
           </AnswerInputContainer>
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <CaptchaButton type="button" onClick={this.refreshComponent.bind(this)} >Refresh</CaptchaButton>
+          <CaptchaButton type="submit">Submit</CaptchaButton>
         </BottomContainer>
       </TextCaptchaContainer>
     );
@@ -113,7 +114,7 @@ const AnswerInputLabel = styled.span`
 const AnswerInputField = styled.input`
   border-radius: 2px;
 `;
-const SubmitButton = styled.button`
+const CaptchaButton = styled.button`
   border-radius: 4px;
   &:hover {
     opacity: 0.8;
