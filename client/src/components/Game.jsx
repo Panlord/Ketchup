@@ -7,6 +7,7 @@ import TextCaptcha from './Captchas/TextCaptcha.jsx';
 import ImageCaptcha from './Captchas/ImageCaptcha/ImageCaptcha.jsx';
 import SoundCaptcha from './Captchas/SoundCaptcha.jsx';
 import ScoreForm from './ScoreForm.jsx';
+import Scores from './Scores.jsx';
 
 /* Stages
   0 - default: solve Google reCaptcha
@@ -84,6 +85,10 @@ class Game extends React.Component {
         break;
       case 9:
         captcha = <ScoreForm score={this.state.score} time={this.state.time} />
+        break;
+      case 10:
+        captcha = <Scores />;
+        break;
   }
 
   return (

@@ -47,8 +47,7 @@ router.get('/highscores', (request, response) => {
   // Run the query to get top 10 scores
   scoreboardHelpers.getTopTen()
     .then((results) => {
-      console.log(results);
-      // Then send back the results
+      response.status(200).send(results);
     })
     .catch((error) => {
       console.log('Error occurred when getting scoreboard helpers.', error);
