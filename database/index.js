@@ -12,4 +12,13 @@ db.once('open', () => {
   console.log('Successfully connected to the database.');
 });
 
-module.exports = db;
+const scoreboardSchema = new mongoose.Schema({
+  name: String,
+  score: Number,
+  time: Number
+});
+
+const Scoreboard = mongoose.model('Scoreboard', scoreboardSchema);
+
+module.exports.db = db;
+module.exports.scoreboard = Scoreboard;

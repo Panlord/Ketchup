@@ -3,6 +3,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 var router = require('express').Router();
+var scoreboardHelpers = require('./helpers/scoreboardHelpers.js');
 
 // Get the files ready to be served, on server start
 var images;
@@ -11,7 +12,6 @@ fs.readdir(path.join(__dirname, '../client/dist/assets/textCaptchaImages'), (err
     console.log('Error in loading images:', error);
   } else {
     images = files;
-    console.log('Got the images');
   }
 });
 
@@ -40,6 +40,34 @@ router.get('/textCaptcha', (request, response) => {
     answer: chosenImage.split('.')[0]
   }
   response.status(200).send(imageObject);
+});
+
+// GET request -- get top 10 scores
+router.get('/highscores', (request, response) => {
+  // Run the query to get top 10 scores
+  scoreboardHelpers.getTopTen()
+    .then((results) => {
+      console.log(results);
+      // Then send back the results
+    })
+    .catch((error) => {
+      console.log('Error occurred when getting scoreboard helpers.', error);
+      response.status(500).send();
+    })
+});
+
+// POST request -- add a new score
+router.post('/newScore', (request, response) => {
+  // Run the query to add a new score
+  scoreboardHelpers.addNewScore(request.body)
+    .then(() => {
+      console.log('Posted!');
+      response.status(201).send();
+    })
+    .catch((error) => {
+      console.log('Error occurred when writing to database.', error);
+      response.status(500).send();
+    })
 });
 
 module.exports = router;
