@@ -27,7 +27,10 @@ const Timer = ({ deadline, endGame }) => {
 
 const CountdownTimer = styled.span`
   color: red;
-  position: absolute:
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  font-size: 30px;
 `;
 
 export default Timer;
