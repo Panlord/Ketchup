@@ -70,12 +70,12 @@ class TextCaptcha extends React.Component {
       <TextCaptchaContainer>
         {this.state.gotWrong && <IncorrectMessage />}
         <CaptchaImage src={this.state.captchaImgSrc} />
-        <BottomContainer>
+        <BottomContainer onSubmit={this.handleSubmit.bind(this)} >
           <AnswerInputContainer>
             <AnswerInputLabel>Type the characters you see in the picture:</AnswerInputLabel>
             <AnswerInputField type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
           </AnswerInputContainer>
-          <SubmitButton onClick={this.handleSubmit.bind(this)}>Submit</SubmitButton>
+          <SubmitButton type="submit">Submit</SubmitButton>
         </BottomContainer>
       </TextCaptchaContainer>
     );
@@ -94,7 +94,7 @@ const TextCaptchaContainer = styled.div`
 const CaptchaImage = styled.img`
   border-radius: 4px;
 `;
-const BottomContainer = styled.div`
+const BottomContainer = styled.form`
   display: flex;
   flex-direction: row;
   padding-top: 2px;
