@@ -15,7 +15,9 @@ This is a fun little game I coded up within 3 days. After completing the initial
 ## References and Credits 📄
 Background music is [Battle! Colress: Remastered ► Pokémon Black & White 2 by Zame](https://www.youtube.com/watch?v=S_IvtZjXpVM).
 
-APIs used:
+Image captchas obtained from [Fournierp's dataset on Kaggle](https://www.kaggle.com/datasets/fournierp/captcha-version-2-images).
+
+APIs for image captchas from:
 - [Cat as a service](https://cataas.com/#/)
 - [Dog API](https://dog.ceo/dog-api/)
 - [Ducks](https://random-d.uk/)
