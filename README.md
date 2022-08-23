@@ -1,6 +1,6 @@
 # ~Captcha~ Ketchup 🍅
-MVP Project - An endless captcha game... well, endless until time runs out.
-**As of 8/9/2022, the project is deployed [here](http://ec2-13-56-211-7.us-west-1.compute.amazonaws.com:3000/captcha).**
+MVP Project - An endless captcha game... well, endless until time runs out.  
+**I deployed the project on an AWS EC2 instance on 8/9/2022 but turned off the instance on 8/22/2022 to prevent costs from accruing. Players' scores from before the server shutdown are recorded at the bottom of this readme 👇**
 
 ## What is this? 🧐
 This is a fun little game I coded up within 3 days. After completing the initial Google ReCaptcha check, the player must complete as many captchas as possible before time runs out. Initially the time limit is 2 minutes, but completing each captcha extends the timer by 2 seconds. Additionally each captcha awards points upon completion-- text captchas award 1 point, image captchas award 2 points, and sound captchas award 3. Text captchas are randomly selected from a selection of 1000+ pieces of text captchas. Image captchas are randomly generated from the following groups: cats, dogs, ducks, bears, waifus, and Keanu Reeves. The images of cats, dogs, ducks, bears, waifus, and Keanu Reeves are all obtained from respective APIs. Sound captchas are randomly selected from a word bank and then spoken using the browser's built-in speech synthesis function. After time runs out, the player's score and the total time survived is logged and submitted to a database once the player inputs a username. Also, there is a button on the top right of the screen to mute the audio.
@@ -27,3 +27,25 @@ I was inspired by the following things:
 - [Dunkey's Captcha video](https://www.youtube.com/watch?v=WqnXp6Saa8Y)
 - [ReCaptcha: The Game](https://www.newgrounds.com/portal/view/819528)
 
+## Scores 💯 (as of 8/22/2022)
+| Name     | Score |
+|----------|-------|
+| alfred   | 266   |
+| AlMyPal  | 143   |
+| Derek    | 108   |
+| Aaron    | 108   |
+| bobbby   | 76    |
+| noa      | 69    |
+| Harrison | 67    |
+| potato   | 66    |
+| Amy      | 37    |
+| Minggui  | 32    |
+| johnny   | 32    |
+| Gary     | 30    |
+| Leo      | 26    |
+| lo       | 16    |
+| Jason    | 16    |
+| Lucas    | 14    |
+| King     | 10    |
+| Jerome   | 8     |
+| gian     | 2     |
